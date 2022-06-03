@@ -1,4 +1,4 @@
-...
+---
 kind: pipeline
 type: kubernetes
 name: pet pipeline
@@ -6,7 +6,7 @@ name: pet pipeline
 steps:
 
 - name: compile
-  image: maven:3.8-jdk-11-slim
+  image: maven:3-jdk-11-slim
   commands:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
