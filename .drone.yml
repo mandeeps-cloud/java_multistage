@@ -4,14 +4,15 @@ type: kubernetes
 name: default
 
 steps:
-- name: backend
-  image: golang
+- name: test
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run/
   commands:
-  - go build
-  - go test
+  - docker ps -a
 
-- name: frontend
-  image: node
-  commands:
-  - npm install
-  - npm test
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/
