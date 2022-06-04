@@ -23,7 +23,6 @@
 #       from_secret: password
 #     repo: k8s/pet
 #     tags: latest
-
 ---
 kind: pipeline
 type: kubernetes
