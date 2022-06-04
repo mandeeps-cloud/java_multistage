@@ -1,25 +1,43 @@
+# ---
+# kind: pipeline
+# type: kubernetes
+# name: pet pipeline
+
+# steps:
+
+# - name: compile
+#   image: maven:3-jdk-11-slim
+#   commands:
+#   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+# - name: build image
+#   image: banzaicloud/drone-kaniko
+#   settings:
+#     registry: hub.docker.com
+#     dockerfile: Dockerfile
+#     cache: true
+#     skip_tls_verify: true
+#     username:
+#       from_secret: username
+#     password:
+#       from_secret: password
+#     repo: k8s/pet
+#     tags: latest
+
 ---
 kind: pipeline
 type: kubernetes
-name: pet pipeline
+name: default
 
 steps:
-
-- name: compile
-  image: maven:3-jdk-11-slim
+- name: backend
+  image: golang
   commands:
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - go build
+  - go test
 
-- name: build image
-  image: banzaicloud/drone-kaniko
-  settings:
-    registry: hub.docker.com
-    dockerfile: Dockerfile
-    cache: true
-    skip_tls_verify: true
-    username:
-      from_secret: username
-    password:
-      from_secret: password
-    repo: k8s/pet
-    tags: latest
+- name: frontend
+  image: node
+  commands:
+  - npm install
+  - npm test
