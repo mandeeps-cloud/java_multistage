@@ -11,7 +11,7 @@ steps:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 - name: build image
-  image: cloudzune/drone-kaniko
+  image: banzaicloud/drone-kaniko
   settings:
     registry: hub.docker.com
     dockerfile: Dockerfile
